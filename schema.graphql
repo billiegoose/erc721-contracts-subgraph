@@ -1,6 +1,6 @@
-type ExampleEntity @entity {
+type Contract @entity {
   id: ID!
-  count: BigInt!
-  _owner: Bytes! # address
-  _approved: Bytes! # address
+  name: String
+  symbol: String
+  totalSupply: BigInt
 }

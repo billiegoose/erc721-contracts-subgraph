@@ -6,24 +6,18 @@ dataSources:
     name: ERC721Token
     network: mainnet
     source:
-      address: "0xceabc60d96944de03566c007f9749abe61fd3381"
       abi: ERC721Token
+      startBlock: 12215263
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - Approval
-        - ApprovalForAll
-        - Transfer
+        - Contract
       abis:
         - name: ERC721Token
           file: ./abis/ERC721Token.json
       eventHandlers:
-        - event: Approval(indexed address,indexed address,indexed uint256)
-          handler: handleApproval
-        - event: ApprovalForAll(indexed address,indexed address,bool)
-          handler: handleApprovalForAll
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
       file: ./src/mapping.ts
