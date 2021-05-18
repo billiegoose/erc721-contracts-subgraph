@@ -7,7 +7,7 @@ import { Contract } from "../generated/schema"
 
 let ERC721_INTERFACE = ByteArray.fromHexString('80ac58cd') as Bytes;
 let ERC721_METADATA_INTERFACE = ByteArray.fromHexString(('5b5e139f')) as Bytes;
-let ERC721_ENUMERABLE_INTERFACE = ByteArray.fromHexString(('780e9d63')) as Bytes;
+// let ERC721_ENUMERABLE_INTERFACE = ByteArray.fromHexString(('780e9d63')) as Bytes;
 
 function supportsInterface(contract: ERC721Token, interfaceId: Bytes): boolean {
   let result = contract.try_supportsInterface(interfaceId);
@@ -35,10 +35,10 @@ export function handleTransfer(event: Transfer): void {
       if (symbol.value !== null) entity.symbol = symbol.value;
     }
 
-    if (supportsInterface(contract, ERC721_ENUMERABLE_INTERFACE)) {
-      let totalSupply = contract.try_totalSupply()
-      if (totalSupply.value !== null) entity.totalSupply = totalSupply.value;
-    }
+    // if (supportsInterface(contract, ERC721_ENUMERABLE_INTERFACE)) {
+    //   let totalSupply = contract.try_totalSupply()
+    //   if (totalSupply.value !== null) entity.totalSupply = totalSupply.value;
+    // }
     entity.save();
   }
 }
