@@ -1,9 +1,6 @@
 import { Address, ByteArray, Bytes, BigInt } from "@graphprotocol/graph-ts"
-import {
-  ERC721Token,
-  Transfer
-} from "../generated/ERC721Token/ERC721Token"
-import { Contract } from "../generated/schema"
+import { ERC721Token, Transfer } from "../generated/ERC721Token/ERC721Token"
+import { Contract, Summary } from "../generated/schema"
 
 let ERC721_INTERFACE = ByteArray.fromHexString('80ac58cd') as Bytes;
 let ERC721_METADATA_INTERFACE = ByteArray.fromHexString(('5b5e139f')) as Bytes;
@@ -39,7 +36,16 @@ export function handleTransfer(event: Transfer): void {
         let symbol = contract.try_symbol();
         if (symbol.value !== null) entity.symbol = symbol.value;
       }
-  
+      
+      let summary = Summary.load('0');
+      if (summary === null) {
+        summary = new Summary('0');
+        summary.total = BIG_ONE;
+        summary.firstBlock = event.block.number;
+      } else {
+        summary.total = summary.total.plus(BIG_ONE);
+      }
+      summary.save();
     } else {
       return;
     }

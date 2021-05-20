@@ -6,3 +6,9 @@ type Contract @entity {
   lastTransferTimestamp: BigInt
   totalSupply: BigInt
 }
+
+type Summary @entity {
+  id: ID!
+  total: BigInt!
+  firstBlock: BigInt!
+}
